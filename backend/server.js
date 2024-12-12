@@ -4,7 +4,10 @@ if (process.env.NODE_ENV != "production") {
 
 const express = require("express");
 const mongoose = require("mongoose");
-require("dotenv").config();
+
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const Faculty = require("./models/faculty");
 
 const app = express();
 const port = 8080;
@@ -18,6 +21,10 @@ mongoose
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+
+app.post("/register", (req, res) => {
+  res.send("Register");
 });
 
 app.listen(port, () => {
