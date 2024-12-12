@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -15,10 +16,20 @@ export default function Register() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Registration Data:", formData);
-    // Handle registration logic (e.g., API call)
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/register",
+        formData
+      );
+      alert(response.data.message); // Corrected reference to the response
+    } catch (err) {
+      console.error(err);
+      alert(
+        err.response?.data.message || "An error occurred during registration"
+      ); 
+    }
   };
 
   return (

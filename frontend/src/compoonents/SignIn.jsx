@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
     rememberMe: false,
   });
@@ -15,10 +16,20 @@ export default function SignIn() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form data submitted:", formData);
-    // API call logic here
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/signin",
+        formData
+      );
+      alert(response.data.message);
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data.message || "An error occurred during login");
+    }
   };
 
   return (
@@ -32,18 +43,18 @@ export default function SignIn() {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email" className="sr-only">
-                Email address
+              <label htmlFor="username" className="sr-only">
+                Username
               </label>
               <input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
+                id="username"
+                name="username"
+                type="text"
+                value={formData.username}
                 onChange={handleChange}
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
+                placeholder="Username"
               />
             </div>
             <div>
@@ -115,9 +126,9 @@ export default function SignIn() {
             className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <img
-              className="h-5 w-5 mr-2"
               src="https://www.svgrepo.com/show/355037/google.svg"
               alt="Google"
+              className="h-5 w-5 mr-2"
             />
             Google
           </button>
@@ -126,16 +137,16 @@ export default function SignIn() {
             className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <img
-              className="h-5 w-5 mr-2"
               src="https://www.svgrepo.com/show/469190/linkedin.svg"
               alt="LinkedIn"
+              className="h-5 w-5 mr-2"
             />
             LinkedIn
           </button>
         </div>
 
         <p className="mt-6 text-center text-sm text-gray-500">
-          New a user?{" "}
+          Not a user?{" "}
           <a
             href="#"
             className="font-medium text-indigo-600 hover:text-indigo-500"
