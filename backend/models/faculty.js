@@ -4,7 +4,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 
 // Passport will username and password automatically
 const facultySchema = new Schema({
-  fullname: {
+  email: {
     type: String,
     required: true,
   },
