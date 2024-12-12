@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 
 export default function SignIn() {
+  const backend_url = import.meta.env.VITE_BACKEND_URL;
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -21,10 +23,7 @@ export default function SignIn() {
     console.log("Form data submitted:", formData);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/signin",
-        formData
-      );
+      const response = await axios.post(backend_url + "signin", formData);
       alert(response.data.message);
     } catch (err) {
       console.error(err);

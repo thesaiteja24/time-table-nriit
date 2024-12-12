@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Register() {
+  const backend_url = import.meta.env.VITE_BACKEND_URL;
+
+  useEffect(() => {
+    console.log("backend url:", backend_url);
+  }, []);
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -19,16 +25,13 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:8080/register",
-        formData
-      );
+      const response = await axios.post(backend_url + "register", formData);
       alert(response.data.message); // Corrected reference to the response
     } catch (err) {
       console.error(err);
       alert(
         err.response?.data.message || "An error occurred during registration"
-      ); 
+      );
     }
   };
 
