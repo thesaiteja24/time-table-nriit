@@ -11,7 +11,7 @@ const Faculty = require("./models/faculty");
 const bodyParser = require("body-parser");
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 
 // Middleware
 app.use(cors());
