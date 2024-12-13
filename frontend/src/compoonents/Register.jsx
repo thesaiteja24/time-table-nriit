@@ -4,10 +4,6 @@ import axios from "axios";
 export default function Register() {
   const backend_url = import.meta.env.VITE_BACKEND_URL;
 
-  useEffect(() => {
-    console.log("backend url:", backend_url);
-  }, []);
-
   const [formData, setFormData] = useState({
     username: "",
     email: "",

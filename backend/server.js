@@ -30,12 +30,12 @@ mongoose
   .catch((err) => console.error("Failed to connect to DB:", err));
 
 // Routes
-app.get("/", (req, res) => {
+app.get("/api/", (req, res) => {
   res.send("Hello World!");
 });
 
 // Register route
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const existingUser = await Faculty.findOne({ username });
@@ -54,7 +54,7 @@ app.post("/register", async (req, res) => {
 });
 
 // Login route
-app.post("/signin", (req, res, next) => {
+app.post("/api/signin", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return res.status(500).json({ message: "Authentication error" });
